@@ -27,58 +27,58 @@ function readJSONFile(name, cb) {
 		cb(JSON.parse(data))
 	})
 }
-//
-//readHTMLPage("index", (content)=>{ console.log(content) })
-//readJSONFile( "products", (data) => { console.log(data) })
+
+readHTMLPage("index", (content) => { console.log(content) })
+readJSONFile("products", (data) => { console.log(data) })
 
 
-// const server = http.createServer( ({url}, res)=>{
+const server = http.createServer(({ url }, res) => {
 
-//     if (url == "/"){
+	if (url == "/") {
 
-//         const html = fs.readFileSync("./server/public/index.html")
-//         res.end(html)
+		const html = fs.readFileSync("./server/public/index.html")
+		res.end(html)
 
-//     } else if( url.startsWith("/api/") ){
+	} else if (url.startsWith("/api/")) {
 
-//         let path = url.split("?")[0]
-//         let params = (url.split("?")[1]).split("&")
-//         let key = params[0].split("=")[1]
+		let path = url.split("?")[0]
+		let params = (url.split("?")[1]).split("&")
+		let key = params[0].split("=")[1]
 
-//         if ( key != acces_key ){
-//             return res.end("ACCES DENIED")
-//         }
+		if (key != acces_key) {
+			return res.end("ACCES DENIED")
+		}
 
-//         if ( path.endsWith("/products/all") ){
+		if (path.endsWith("/products/all")) {
 
-//             const products = fs.readFileSync("./server/data/products.json")
-//             res.end(products)
+			const products = fs.readFileSync("./server/data/products.json")
+			res.end(products)
 
-//         } else if ( path.endsWith("/products/category") ){
+		} else if (path.endsWith("/products/category")) {
 
-//             const products = JSON.parse( fs.readFileSync("./server/data/products.json") )
-//             const productsFiltered = []
+			const products = JSON.parse(fs.readFileSync("./server/data/products.json"))
+			const productsFiltered = []
 
-//             for(let i=0; i<products.length; i++){
+			for (let i = 0; i < products.length; i++) {
 
-//                 if ( products[i].category == "Category 1" ){
-//                     productsFiltered.push( products[i] ) 
-//                 }
-//             }
-//             res.end( JSON.stringify(productsFiltered) )
-//         } else{            
-//             res.end("API NOT FOUND!")
-//         }
+				if (products[i].category == "Category 1") {
+					productsFiltered.push(products[i])
+				}
+			}
+			res.end(JSON.stringify(productsFiltered))
+		} else {
+			res.end("API NOT FOUND!")
+		}
 
-//         res.end("API")
+		res.end("API")
 
-//     }else {
-//         res.end("404! NOT FOUND!")
-//     }
-//     console.log(`> Server: incoming REQUEST ${url}`)
-//     res.end("OK")
-// })
+	} else {
+		res.end("404! NOT FOUND!")
+	}
+	console.log(`> Server: incoming REQUEST ${url}`)
+	res.end("OK")
+})
 
-// server.listen(port, host, ()=>{
-//     console.log(`> Server running http://${host}:${port}`)
-// })
+server.listen(port, host, () => {
+	console.log(`> Server running http://${host}:${port}`)
+})
