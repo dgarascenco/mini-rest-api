@@ -8,7 +8,7 @@ const fs = require("fs")
 const server = http.createServer(({ url }, res) => {
 
 	const route = new Route(url)
-
+	console.log(route)
 	//	routing
 	if (route.isPath("/")) {
 		const html = readHTMLPage("index", (content) => {

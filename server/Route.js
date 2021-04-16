@@ -14,21 +14,25 @@ module.exports.Route = class Route {
 	}
 
 	hasParam(name) {
-		for (let i = 0; i < this.parameters.length; i++) {
-			if (name in this.parameters[i]) {
-				return true
-			}
-		}
-		return false
+		if (this.parameters.find(obj => {
+			return (name in obj)
+		}) == undefined)
+			return false
+		return true
 	}
 
 	getParam(name) {
-		for (let i = 0; i < this.parameters.length; i++) {
-			if (name in this.parameters[i]) {
-				return this.parameters[i][name]
+		let value = null
+		this.parameters.find(obj => {
+			if ((name in obj) != undefined) {
+				value = obj[name]
 			}
-		}
-		return null;
+		})
+
+		if (value == undefined)
+			return null
+		else
+			return value
 	}
 
 	getPath() {
