@@ -1,29 +1,29 @@
 [
-    {
-        "name": "Product 1",
-        "category":"Category 1",
-        "price": {
-            "amount": 100.00,
-            "currency": "USD"
-        },
-        "quantity":10
-    },
-    {
-        "name": "Product 2",
-        "category":"Others",
-        "price": {
-            "amount": 200.00,
-            "currency": "MDL"
-        },
-        "quantity":30
-    },
-    {
-        "name": "Product 3",
-        "category":"Category 1",
-        "price": {
-            "amount": 300.00,
-            "currency": "EU"
-        },
-        "quantity":20
-    }
+	{
+		"name": "Meat",
+		"category": "Eat",
+		"price": {
+			"amount": 100.00,
+			"currency": "USD"
+		},
+		"quantity": 10
+	},
+	{
+		"name": "Apple",
+		"category": "Fruit",
+		"price": {
+			"amount": 200.00,
+			"currency": "MDL"
+		},
+		"quantity": 30
+	},
+	{
+		"name": "Eggs",
+		"category": "Bacaley",
+		"price": {
+			"amount": 300.00,
+			"currency": "EU"
+		},
+		"quantity": 20
+	}
 ]

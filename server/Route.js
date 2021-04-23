@@ -1,47 +1,39 @@
-module.exports.Route = class Route {
-	constructor(path) {
-		this.path = path.split("?")[0]
+exports.Route = class Route {
 
-		this.parameters = []
-		if (path.indexOf('?') > -1) {
-			let array = (path.split("?")[1]).split("&")
-			let parameter = {};
-			for (let i = 0; i < (path.split("?")[1]).split("&").length; i++) {
-				parameter[array[i].split("=")[0]] = array[i].split("=")[1]
-				this.parameters.push(parameter)
-			}
+	static routes = []
+
+	static add(route) {
+		this.routes.push(route)
+	}
+
+	// method that resolves the ROUTING process
+	static resolve(url, cb) {
+
+		if (url == "/ping") {
+			return cb(pingAction)
+
+		} else if (url.split("?")[0] == "/echo") {
+
+			let params = url.split("?")[1].split("&").map(value => {
+				let obj = {}
+				obj[value.split("=")[0]] = value.split("=")[1]
+				return obj
+			})
+			return cb(echoAction.bind(this, params))
+
+		} else {
+
+			return cb(() => {
+				return `{ "status": 404 }`
+			})
+
 		}
 	}
 
-	hasParam(name) {
-		if (this.parameters.find(obj => {
-			return (name in obj)
-		}) == undefined)
-			return false
-		return true
-	}
-
-	getParam(name) {
-		let value = null
-		this.parameters.find(obj => {
-			if ((name in obj) != undefined) {
-				value = obj[name]
-			}
-		})
-
-		if (value == undefined)
-			return null
-		else
-			return value
-	}
-
-	getPath() {
-		return this.path
-	}
-
-	isPath(path) {
-		if (this.path == path)
-			return true
-		return false
-	}
+}
+function echoAction(params) {
+	return `{ "echo": ${params.find(obj => obj['name']).name} }`
+}
+function pingAction() {
+	return `{ "active": true }`
 }
