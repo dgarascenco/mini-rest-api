@@ -2,10 +2,13 @@ const http = require("http")
 const { host, port, access_key } = require("./config")
 
 const { Route } = require('./route')
+Route.add({ path: "/ping", module: "status", action: "pingAction" })
+Route.add({ path: "/echo", module: "status", action: "echoAction" })
 const server = http.createServer(({ url }, res) => {
 
-	Route.resolve(url, (action) => {    // < this is the cb()
-		res.end(action())
+	Route.resolve(url, (action, params) => {    // < this is the cb()
+		console.log("action", action)
+		res.end(action(params))
 	})
 
 })
